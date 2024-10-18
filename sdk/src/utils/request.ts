@@ -17,7 +17,7 @@ export const request = async <Output = any>(
 	options.headers =
 		typeof options.headers === 'object' && !Array.isArray(options.headers)
 			? (options.headers as Record<string, string>)
-			: {};
+			: {}; 
 
 	return fetcher(url, options).then((response) => {
 		return extractData(response).catch((reason) => {
