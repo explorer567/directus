@@ -1,5 +1,6 @@
 import type { FetchInterface } from '../index.js';
 import { extractData } from './extract-data.js';
+import {encodeQueryParamsToBase64} from './changeUrlToBase64'
 
 /**
  * Request helper providing default settings
@@ -19,7 +20,7 @@ export const request = async <Output = any>(
 			? (options.headers as Record<string, string>)
 			: {}; 
 
-	return fetcher(url, options).then((response) => {
+	return fetcher(encodeQueryParamsToBase64(url), options).then((response) => {
 		return extractData(response).catch((reason) => {
 			const result: { response: unknown; errors: any; data?: any } = {
 				errors: reason && typeof reason === 'object' && 'errors' in reason ? reason.errors : reason,
